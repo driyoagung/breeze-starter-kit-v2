@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
+// use Illuminate\Routing\Controllers;
 
 class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    // implements Controllers\HasMiddleware
+    // public static function middleware()
+    // {
+    //     return [
+    //         new Controllers\Middleware('auth', except: ['index'])
+    //     ];
+    // }
     public function index()
     {
         return view("stores.index", [
@@ -23,7 +34,19 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view("stores.create");
+        return view(
+            "stores.form",
+            [
+                "store" => new Store(),
+                "page_meta" => [
+                    "title" => "Create Store",
+                    "description" => "Create a New Store up to 5 account",
+                    "method" => "post",
+                    "button" => "Create",
+                    "url" => route("stores.store"),
+                ],
+            ]
+        );
 
     }
 
@@ -54,18 +77,34 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Store $store)
+    public function edit(Request $request, Store $store)
     {
-        return view("stores.edit");
+        Gate::authorize('update', $store);
+        // abort_if($request->user()->isNot($store->user), 403);
+        return view("stores.form", [
+            "store" => $store,
+            "page_meta" => [
+                "title" => "Edit Store",
+                "description" => "Edit Store" . $store->name,
+                "method" => "put",
+                "button" => "Update",
+                "url" => route("stores.update", $store),
+            ],
+        ]);
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
-        //
+        $store->update([
+            "name" => $request->name,
+            "description" => $request->description,
+
+        ]);
+        return redirect()->route("stores.index");
     }
 
     /**

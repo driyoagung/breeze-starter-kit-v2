@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
 
-        @slot('title', 'Edit Stores')
+        @slot('title', $page_meta['title'])
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Stores') }}
+            {{ $page_meta['title'] }}
         </h2>
     </x-slot>
 
@@ -12,16 +12,16 @@
         <x-card class="max-w-2xl">
             <x-card.header>
                 <x-card.title>
-                    Edit a New Store
+                    {{ $page_meta['title'] }}
                 </x-card.title>
                 <x-card.description>
-                    Edit the Store {{ $store->name }}
+                    {{ $page_meta['description'] }}
                 </x-card.description>
             </x-card.header>
             <x-card.content>
-                <form action="{{ route('stores.update', $store) }}" method="post" enctype="multipart/form-data"
-                    class="[&>div]:mb-6" novalidate>
-                    @method('PUT')
+                <form action="{{ $page_meta['url'] }}" method="post" enctype="multipart/form-data" class="[&>div]:mb-6"
+                    novalidate>
+                    @method($page_meta['method'])
                     @csrf
                     <div>
                         <x-input-label for="logo" :value="__('Logo')" class="sr-only" />
@@ -32,18 +32,18 @@
 
                         <x-input-label for="name" :value="__('Name')" />
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            :value="old('name', $store->name)" required autofocus />
+                            :value="old('name')" required autofocus />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="description" :value="__('Description')" />
                         <x-textarea id="description" class="block mt-1 w-full" name="description"
-                            required>{{ old('description', $store->description) }}</x-textarea>
+                            required>{{ old('description') }}</x-textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
 
                     <x-primary-button>
-                        Update
+                        {{ $page_meta['button'] }}
                     </x-primary-button>
                 </form>
             </x-card.content>

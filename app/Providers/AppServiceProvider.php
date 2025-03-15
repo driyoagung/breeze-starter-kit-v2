@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Store;
+use App\Models\User;
+use App\Policies\StorePolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Gate::define('update-store', function (User $user, Store $store) {
+        //     return $user->id === $store->user_id;
+        // });
+        Gate::policy(Store::class, StorePolicy::class);
     }
 }

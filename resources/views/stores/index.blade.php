@@ -22,6 +22,13 @@
                         <x-card.description>
                             {{ $store->description }}
                         </x-card.description>
+                        @auth
+                            @if ($store->user_id === auth()->user()->id)
+                                <div class="flex justify-end">
+                                    <a href="{{ route('stores.edit', $store) }}" class="text-blue-500">Edit</a>
+                                </div>
+                            @endif
+                        @endauth
                     </x-card.header>
                 </x-card>
             @endforeach
