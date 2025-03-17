@@ -26,9 +26,16 @@ class StoreController extends Controller
     // }
     public function list()
     {
-        $stores = Store::query()->latest()->paginate(8);
+        $stores = Store::query()
+            ->with('user', fn($query) => $query->select(['id', 'name']))
+            ->withCount('products')
+            // ->with('user:id,name')
+            ->latest()->paginate(8);
+
         return view("stores.list", [
             "stores" => $stores,
+            "isAdmin" => auth()->user()->isAdmin(),
+
         ]);
     }
     public function approve(Store $store)
@@ -36,6 +43,13 @@ class StoreController extends Controller
         $store->status = StoreStatus::ACTIVE;
         $store->save();
         return back()->with("success", "Store Approved");
+    }
+    public function mine(Request $request)
+    {
+        $stores = Store::query()->where('user_id', $request->user()->id)->latest()->paginate(8);
+        return view("stores.mine", [
+            "stores" => $stores,
+        ]);
     }
     public function index()
     {
@@ -85,7 +99,11 @@ class StoreController extends Controller
 
     public function show(Store $store)
     {
-        //
+        // return $store->loadCount("products");
+        return view("stores.show", [
+            "store" => $store->loadCount("products"),
+            "products" => $store->products()->latest()->paginate(12),
+        ]);
     }
 
 

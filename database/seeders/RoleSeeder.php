@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
             "password" => bcrypt("admin123"),
             "email_verified_at" => now(),
         ]);
+
         User::factory(10)->create();
         $user2 = User::find(2);
         collect([
