@@ -2,7 +2,7 @@
     <x-slot name="header">
 
         @slot('title', $page_meta['title'])
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl  leading-tight">
             {{ $page_meta['title'] }}
         </h2>
     </x-slot>
@@ -32,13 +32,13 @@
 
                         <x-input-label for="name" :value="__('Name')" />
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            :value="old('name')" required autofocus />
+                            :value="old('name', $store->name)" required autofocus />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="description" :value="__('Description')" />
                         <x-textarea id="description" class="block mt-1 w-full" name="description"
-                            required>{{ old('description') }}</x-textarea>
+                            required>{{ old('description', $store->description) }}</x-textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
 

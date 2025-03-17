@@ -2,7 +2,7 @@
     <x-slot name="header">
 
         @slot('title', 'Stores')
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Stores') }}
         </h2>
     </x-slot>

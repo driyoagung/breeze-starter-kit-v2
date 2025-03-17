@@ -26,7 +26,7 @@
         <!-- Remember Me -->
         <div class="block mt-4 ">
 
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <a class="underline text-sm text-zinc-600 hover:text-zinc-900 rounded-md focus:outline-none "
                 href="{{ route('register') }}">
                 {{ __('Register here') }}
             </a>
@@ -35,7 +35,7 @@
 
         <div class="flex items-center justify-end mt-4 ">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                <a class="underline text-sm text-zinc-400 hover:text-white rounded-md focus:outline-none "
                     href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>

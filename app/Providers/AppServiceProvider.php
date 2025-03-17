@@ -27,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         //     return $user->id === $store->user_id;
         // });
         Gate::policy(Store::class, StorePolicy::class);
+        Gate::define('isPartner', fn(User $user) => $user->isAdmin() || $user->isPartner());
+
     }
 }

@@ -15,7 +15,7 @@
         <a href="/login">
             <x-primary-button>Login</x-primary-button>
         </a>
-        <a href="/login">
+        <a href="/register">
             <x-secondary-button>Register</x-secondary-button>
         </a>
     </div>

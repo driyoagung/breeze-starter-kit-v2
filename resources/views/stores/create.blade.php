@@ -2,7 +2,7 @@
     <x-slot name="header">
 
         @slot('title', 'Create a Stores')
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-zinc-800 leading-tight">
             {{ __('Create Stores') }}
         </h2>
     </x-slot>
@@ -19,8 +19,8 @@
                 </x-card.description>
             </x-card.header>
             <x-card.content>
-                <form action="{{ route('stores.store') }}" method="post" enctype="multipart/form-data"
-                    class="[&>div]:mb-6" novalidate>
+                <form action="{{ route('stores.store') }}" method="post" enctype="multipart/form-data" class="[&>div]:mb-6"
+                    novalidate>
                     @csrf
                     <div>
                         <x-input-label for="logo" :value="__('Logo')" class="sr-only" />
